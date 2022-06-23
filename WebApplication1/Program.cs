@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<JWTContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("JWTContext") ?? throw new InvalidOperationException("Connection String 'JWTContext' not Found.")));
+builder.Services.AddScoped<UserViewModel>();
 // Add services to the container.
 builder.Services.AddCors();
 builder.Services.AddControllers();

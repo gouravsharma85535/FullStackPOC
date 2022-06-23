@@ -16,7 +16,7 @@ namespace WebApplication1.Models
         {
         }
 
-        public DbSet<WebApplication1.Models.User>? Users { get; set; }
+        public DbSet<WebApplication1.Models.User> Users { get; set; }
        // public virtual DbSet<User> Users { get; set; } = null!;
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
