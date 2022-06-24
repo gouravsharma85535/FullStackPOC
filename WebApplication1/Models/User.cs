@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
+using System.Web.Http;
 //using WebApplication1.Data;
 
 namespace WebApplication1.Models
@@ -22,12 +22,16 @@ namespace WebApplication1.Models
     public class UserViewModel
     {
         private readonly JWTContext _context;
+        private IHttpContextAccessor _httpContextAccessor;
 
-        public UserViewModel(JWTContext context)
+        
+
+        public UserViewModel(JWTContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<string> Register(User request)
+        public async Task<JsonResult> Register(User request)
         {
             var log = _context.Users.Where(x => x.Username.Equals(request.Username)).FirstOrDefault();
 
@@ -36,34 +40,34 @@ namespace WebApplication1.Models
             {
                 _context.Users.Add(request);
                 await _context.SaveChangesAsync();
-                //return Json(new { message = "Hello" });
-                //return new JsonResult("Signup Sucess");
-                return ("SignUp Sucesss!");
+                return new JsonResult("Signup Sucess");
             }
             else
-                //if (result != null)
-                //return BadRequest(new { message = "SIgnup Failed '{ex}'" });
-            return ("Username Already in Use!");
+                
+             return new JsonResult("Username Already in Use!");
 
         }
+        
         public async Task<JsonResult> Login(UserLog request)
         {
 
             var log = _context.Users.Where(x => x.Username.Equals(request.UserName) && x.Password.Equals(request.Password)).FirstOrDefault();
-
             if (log == null)
             {
 
-                return new JsonResult(new { status = 401, isSuccess = false, message = "Invalid User", });
+                return new JsonResult("Login Failed!");
             }
             else
             {
-
+                
                 string token = CreateToken(request);
-                return new JsonResult(token);
-                //return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", UserDetails = log });
+                
+                return new JsonResult ("User Login successfully! \n" +token);
             }
+            
+
         }
+       
         private string CreateToken(UserLog usr)
         {
             List<Claim> claims = new List<Claim>

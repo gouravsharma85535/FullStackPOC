@@ -12,10 +12,7 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public static User us = new User();
-        public static UserLog log = new UserLog();
         private readonly JWTContext _context;
-        // private readonly JWTContext _context;
         private readonly UserViewModel _personService;
 
         public ValuesController(JWTContext context, UserViewModel personService)
@@ -40,12 +37,15 @@ namespace WebApplication1.Controllers
             [HttpPost("Login")]
         public async Task<ActionResult<User>> Register(UserLog request)
         {
+
                 try
                 {
+                
                     return Ok(await _personService.Login(request));
-                }
+            }
                 catch (Exception ex)
                 {
+                //return this.StatusCode(500, "Invalid");
                     return BadRequest($"Bad'{ex}'");
                 }
         }
