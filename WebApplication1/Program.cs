@@ -23,7 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().WithExposedHeaders("x-my-custom-header"));
+app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().WithExposedHeaders("x-my-custom-headerw"));
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

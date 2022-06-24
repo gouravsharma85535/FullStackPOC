@@ -48,23 +48,24 @@ namespace WebApplication1.Models
 
         }
         
-        public async Task<JsonResult> Login(UserLog request)
+        public async Task<object> Login(UserLog request)
         {
 
             var log = _context.Users.Where(x => x.Username.Equals(request.UserName) && x.Password.Equals(request.Password)).FirstOrDefault();
             if (log == null)
             {
-
-                return new JsonResult("Login Failed!");
+                return  null;
+                //return new JsonResult("Login Failed!");
             }
             else
             {
-                
+
                 string token = CreateToken(request);
-                
-                return new JsonResult ("User Login successfully! \n" +token);
+                _httpContextAccessor.HttpContext.Response.Headers.Add(key: "x-custom-headerw", value: token);
+                return (token );
+                //return new JsonResult ("User Login successfully! \n" +token);
             }
-            
+            //return (log);
 
         }
        

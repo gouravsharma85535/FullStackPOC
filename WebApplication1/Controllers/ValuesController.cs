@@ -37,17 +37,24 @@ namespace WebApplication1.Controllers
             [HttpPost("Login")]
         public async Task<ActionResult<User>> Register(UserLog request)
         {
+            try
+            {
+                var red = await _personService.Login(request);
+                if (red != null)
+                {
+                    return Ok("User Logged In!"+red);
 
-                try
-                {
-                
-                    return Ok(await _personService.Login(request));
-            }
-                catch (Exception ex)
-                {
-                //return this.StatusCode(500, "Invalid");
-                    return BadRequest($"Bad'{ex}'");
                 }
+                else
+                {
+                    return BadRequest("Invalid Credentials!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Bad'{ex}'");
+            }
+           
         }
         
     }
