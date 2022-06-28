@@ -8,7 +8,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/token/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
@@ -39,16 +39,16 @@ namespace WebApplication1.Controllers
         {
             try
             {
-                var red = await _personService.Login(request);
-                if (red != null)
-                {
-                    return Ok("User Logged In!"+red);
+                return Ok( await _personService.Login(request));
+                //if (red != null)
+                //{
+                //    return Ok("User Logged In!" + red);
 
-                }
-                else
-                {
-                    return BadRequest("Invalid Credentials!");
-                }
+                //}
+                //else
+                //{
+                //    return BadRequest("Invalid Credentials!");
+                //}
             }
             catch (Exception ex)
             {
@@ -56,6 +56,30 @@ namespace WebApplication1.Controllers
             }
            
         }
+        [HttpPost("test")]
+        public async Task<ActionResult<UserLog>> Get(UserLog s)        //    {
+        //    try { 
+        //    return Ok(await _personService.GEt(request));
+        //}
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest($"Bad'{ex}'");
+        //    }
+        {
+            if (_personService.GEt == null)
+            {
+                return NotFound();
+            }
+            var userDto = await _personService.GEt(s);
+
+            if (userDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userDto);
+        }
         
+
     }
 }
