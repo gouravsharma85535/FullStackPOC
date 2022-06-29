@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<JWTContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("JWTContext") ?? throw new InvalidOperationException("Connection String 'JWTContext' not Found.")));
 builder.Services.AddScoped<UserViewModel>();
-//builder.Services.AddHttpClient<UserViewModel>();
 // Add services to the container.
 builder.Services.AddCors();
 builder.Services.AddMemoryCache();
@@ -16,7 +15,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddHttpContextAccessor();
-//builder.Services.AddSession();
 
 builder.Services.AddDistributedMemoryCache();
 

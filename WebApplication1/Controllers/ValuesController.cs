@@ -40,44 +40,13 @@ namespace WebApplication1.Controllers
             try
             {
                 return Ok( await _personService.Login(request));
-                //if (red != null)
-                //{
-                //    return Ok("User Logged In!" + red);
-
-                //}
-                //else
-                //{
-                //    return BadRequest("Invalid Credentials!");
-                //}
+                
             }
             catch (Exception ex)
             {
                 return BadRequest($"Bad'{ex}'");
             }
            
-        }
-        [HttpPost("test")]
-        public async Task<ActionResult<UserLog>> Get(UserLog s)        //    {
-        //    try { 
-        //    return Ok(await _personService.GEt(request));
-        //}
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Bad'{ex}'");
-        //    }
-        {
-            if (_personService.GEt == null)
-            {
-                return NotFound();
-            }
-            var userDto = await _personService.GEt(s);
-
-            if (userDto == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(userDto);
         }
         
 
