@@ -8,7 +8,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/token/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
