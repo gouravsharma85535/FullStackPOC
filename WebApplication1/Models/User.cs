@@ -63,64 +63,27 @@ namespace WebApplication1.Models
             {
               string token = CreateToken(request);
                 _memoryCache.Set(key: "mu",value: token, TimeSpan.FromMinutes(1));
-                // _httpContextAccessor.HttpContext.Session.SetString(key: "myKey", value: token);
-                // _httpContextAccessor.HttpContext.Response.Headers.Add(key: "x-custom-headerw", value: token);
                 _httpContextAccessor.HttpContext.Response.Cookies.Append("bearer_token", token, new CookieOptions { HttpOnly = false }); ;
                 return new JsonResult(new {success=1, message = "Login Successful!", status = 200, token=token });
             }
         }
         public async Task<JsonResult> Get()
         {
-            //var handler = new JwtSecurityTokenHandler();
-          //  var e = _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("bearer_token", out var headerValue);
-            //
-            // var session = _httpContextAccessor.HttpContext.Response.Headers.TryGetValue("bearer_token", out var values) ? values.FirstOrDefault() : null;
-            // var s = _httpContextAccessor.HttpContext.Request.Headers.Authorization.FirstOrDefault();
-            // var t = _httpContextAccessor.HttpContext.Request.Cookies.FirstOrDefault();
-            // var x=  _httpContextAccessor.HttpContext.Request.Headers.Authorization.FirstOrDefault("Cookies");
-             //var r = _httpContextAccessor.HttpContext.Request.Headers.Cookie.FirstOrDefault();
-            //// int foundS1 = r.IndexOf("");
-            //int foundS2 = r.IndexOf("=", 0);    
 
-            // if (0 != foundS2)// && foundS1 >= 0)
-            {
-                //  r = r.ToString();
-                //  string cx = "bearer_token=";
-                // r = Regex.Replace(r,cx,"");
-                // r = r.Remove(-1, 14);
-
-                //Console.WriteLine("After removing the middle name, we are left with '{0}'", r);
-            }//HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "access_token").Value;
-            // = _httpContextAccessor.HttpContext.Request.Headers.Authorization..First("Authorization");//, out StringValues authString);
-            //var r = _httpContextAccessor.HttpContext.Response.Headers.FirstOrDefault("access_token");
             var c = _memoryCache.Get(key: "mu");
-            var k = _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("bearer_token",out var val);
-            string header =
-        _httpContextAccessor.HttpContext.Request.Headers["bearer_token"];
-            // string authHeader = _httpContextAccessor.HttpContext.Request.Cookies["bearer_token"];
-            //var jsonToken = handler.ReadToken(headerValue);
-            //var TS = handler.ReadToken(headerValue) as JwtSecurityToken;
-            //var id = TS.Claims.First(claim => claim.Type == ClaimTypes.Name).Value;
+            var k = _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("bearer_token", out var val);
+            string header = _httpContextAccessor.HttpContext.Request.Headers["bearer_token"];
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = (JwtSecurityToken)tokenHandler.ReadToken(header);
             var claimValue = securityToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-            string z=val.ToString();
-            //if (val.ToString() == c.ToString())
-            //{
-
-            //    //     var b=await _context.Users.FindAsync(claimValue);
-            //    //     return new (b);
-
-
-            //    return new JsonResult(_context.Users.Find(header));
-            //}
-            if(header==c.ToString())
+            string z = val.ToString();
+            if (header == c.ToString())
             {
-                return new(new{message="Sucessfull", Data= await _context.Users.FindAsync(claimValue) });
+                return new(new { message = "Sucessfull", Data = await _context.Users.FindAsync(claimValue) });
             }
-            // else
-            return new(val + "                   "+header+"               "+c);//+id+"Didnt Match! "+authHeader);
+            else
+                return new(new { message="Failed" , Data=val + "                   " + header + "               " + c});
         }
        
 
