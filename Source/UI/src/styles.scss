@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/@angular/material/theming";
+@include mat-core();
+
+$my-theme-primary:mat-palette($mat-indigo);
+$my-theme-accent:mat-palette($mat-blue);
+
+
+
+$my-theme-light:mat-light-theme($my-theme-primary, $my-theme-accent);
+$my-theme-dark:mat-dark-theme($my-theme-primary, $my-theme-accent);
+
+
+html, body { height: 100% !important; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.theme-light{
+  @include angular-material-theme($my-theme-light);
+}
+.theme-dark{
+  @include angular-material-theme($my-theme-dark);
+}

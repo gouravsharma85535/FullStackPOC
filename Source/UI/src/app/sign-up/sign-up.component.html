@@ -1,0 +1,77 @@
+<mat-card>
+<p-messages *ngIf="messageEnable" class="alert" [(value)]="message" [enableService]="false"></p-messages>
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" style="height: 100%; padding-top:50px; padding-bottom: 121px "  >
+<!--<div class="row">-->
+<!--  <div class="col-12 text-center">-->
+
+    <mat-card fxFlex="29" >
+
+    <mat-toolbar color="primary">SignUp</mat-toolbar>
+    <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="signupForm" class="signup-form">
+      <mat-form-field >
+        <mat-label>First Name </mat-label>
+        <input matInput formControlName="firstName" placeholder="First Name"
+               [ngClass]="{ 'is-invalid': signupFormCtrl.firstName.touched && signupFormCtrl.firstName.invalid }">
+
+        <div class='invalid-feedback'>
+          <div *ngIf='signupFormCtrl.firstName.errors?.required'>Required</div>
+        </div>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="Last Name"
+               [ngClass]="{ 'is-invalid': signupFormCtrl.lastName.touched && signupFormCtrl.lastName.invalid }">
+        <div class='invalid-feedback'>
+          <div *ngIf='signupFormCtrl.userName.errors?.required'>Required</div>
+        </div>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>User Name</mat-label>
+        <input matInput formControlName="userName" placeholder="User Name"
+               [ngClass]="{ 'is-invalid': signupFormCtrl.userName.touched && signupFormCtrl.userName.invalid }">
+        <div class='invalid-feedback'>
+          <div *ngIf='signupFormCtrl.userName.errors?.required'>Required</div>
+        </div>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com"
+               [ngClass]="{ 'is-invalid': signupFormCtrl.email.touched && signupFormCtrl.email.invalid }">
+        <div class='invalid-feedback'>
+          <div *ngIf='signupFormCtrl.email.errors?.required'>Required</div>
+          <div *ngIf='signupFormCtrl.email.errors?.email'>Enter valid email address</div>
+        </div>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Password</mat-label>
+
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+               [ngClass]="{ 'is-invalid': signupFormCtrl.password.touched && signupFormCtrl.password.invalid }">
+        <div class='invalid-feedback'>
+          <div *ngIf='signupFormCtrl.password.errors?.required'>Required</div>
+          <div *ngIf='signupFormCtrl.password.errors?.pattern'>Please enter lowercase, uppercase, special character and min length is 8.</div>
+        </div>
+        <button mat-icon-button matSuffix (click)="hide = !hide" >
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button (click)="submit()" type="button">SignUp</button>
+    </form>
+    <div class="col-12 text-center">
+      <button mat-button (click)="router.navigate(['login'])">I am already member</button>
+    </div>
+  </mat-card>
+<!--  </div>-->
+<!--</div>-->
+</div>
+</mat-card>

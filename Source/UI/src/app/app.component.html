@@ -1,0 +1,10 @@
+
+<mat-toolbar color="primary" >LOGIN SIGNUP APP
+  <button mat-mini-fab color="accent" class="up" (click)="scaleUp()">+</button>
+    <span class="fonts">a/A</span>
+    <button mat-mini-fab color="accent" class="down" (click)="scaleDown()">-</button>
+    <button mat-raised-button color="accent" class="dark" (click)="isDark=!isDark" >Dark Mode</button>
+</mat-toolbar>
+<span [style.font-size]="returnCount() + 'px'">
+<router-outlet></router-outlet>
+</span>

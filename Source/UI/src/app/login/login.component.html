@@ -1,0 +1,50 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" style="background-color: darkgrey">
+  <mat-card fxFlex="25">
+    
+    <mat-toolbar color="primary">LOGIN PAGE</mat-toolbar>
+
+
+    <form fxLayoutAlign="stretch" fxLayout="column" [formGroup]="loginForm" class="login-form">
+
+      <!-- <mat-form-field >
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com"
+               [ngClass]="{ 'is-invalid': loginFormCtrl.email.touched && loginFormCtrl.email.invalid }">
+        <div class='invalid-feedback'>
+          <div *ngIf='loginFormCtrl.email.errors?.required'>Required</div>
+          <div *ngIf='loginFormCtrl.email.errors?.email'>Enter valid email address</div>
+        </div>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field> -->
+
+      <mat-form-field >
+        <mat-label>User Name</mat-label>
+        <input matInput formControlName="userName" placeholder="User Name"
+               [ngClass]="{ 'is-invalid': loginFormCtrl.userName.touched && loginFormCtrl.userName.invalid }">
+        <div class='invalid-feedback'>
+          <div *ngIf='loginFormCtrl.userName.errors?.required'>Required</div>
+        </div>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+               [ngClass]="{ 'is-invalid': loginFormCtrl.password.touched && loginFormCtrl.password.invalid }">
+        <div class='invalid-feedback'>
+          <div *ngIf='loginFormCtrl.password.errors?.required'>Required</div>
+          <div *ngIf='loginFormCtrl.password.errors?.pattern'>Wrong Password !</div>
+        </div>
+        <button mat-icon-button matSuffix (click)="hide = !hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button (click)="login()" type="submit">LogIn</button>
+    </form>
+    <div class="col-12 text-center">
+      <button mat-button (click)="router.navigate(['sign-up'])">New member</button>
+    </div>
+  </mat-card>
+</div>
